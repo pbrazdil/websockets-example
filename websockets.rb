@@ -1,6 +1,6 @@
 @clients = []
 
-WebSocketsApp = -> (env) do
+WebSocketsApp = lambda  do |env|
   if Faye::WebSocket.websocket?(env)
     ws = Faye::WebSocket.new(env)
 
