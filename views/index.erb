@@ -18,7 +18,7 @@
 </body>
 <script>
     var socket;
-    var host = 'ws://' + location.hostname + ':' + '<%= ENV['OPENSHIFT_RUBY_PORT'].nil? ? 9292 : 8080 %>';
+    var host = 'ws://' + location.hostname + ':' + '<%= ENV['OPENSHIFT_RUBY_PORT'].nil? ? 9292 : 8000 %>';
 
     function connect() {
         var WebSocketsEngine = window.MozWebSocket || window.WebSocket;
