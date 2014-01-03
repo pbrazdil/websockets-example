@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<div class="container" style="width:800px;margin: 0 auto;">
+  <h1>WebSockets Chat (run in multiple tabs)</h1>
+
+  <div id="chat-log"></div>
+  <div id="form">
+    <input type="text" id="message">
+    <button id="send-text">Send</button>
+    <button id="disconnect">Disconnect</button>
+  </div>
+</div>
+
+</body>
+<script>
+    var socket;
+    var host = 'ws://' + location.hostname + ':' + '<%= ENV['OPENSHIFT_RUBY_PORT'].nil? ? 9292 : 8080 %>';
+
+    function connect() {
+        var WebSocketsEngine = window.MozWebSocket || window.WebSocket;
+        socket = new WebSocketsEngine(host);
+
+        socket.onopen = function () {
+            addMessage("Connected to chat.");
+        }
+
+        socket.onclose = function () {
+            addMessage("Disconnected from chat.");
+        }
+
+        socket.onmessage = function (msg) {
+            addMessage("Received: " + msg.data);
+        }
+    }
+
+    function addMessage(msg) {
+        $("#chat-log").append("<p>" + msg + "</p>");
+    }
+
+    function send() {
+        var text = $("#message").val();
+        if (text == '') {
+            return;
+        }
+
+        socket.send(text);
+        addMessage("Sent: " + text)
+        $("#message").val('');
+    }
+
+    $('#message').keypress(function (event) {
+        if (event.keyCode == '13') {
+            send();
+        }
+    });
+
+    $('#send-text').click(function() {
+        send();
+    });
+
+    $("#disconnect").click(function () {
+        socket.close()
+    });
+
+    $(function () {
+        connect();
+    });
+
+</script>
+</html>
