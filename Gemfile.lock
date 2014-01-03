@@ -7,6 +7,7 @@ GEM
     faye-websocket (0.7.0)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.3.0)
+    kgio (2.8.1)
     method_source (0.8.2)
     pry (0.9.12.4)
       coderay (~> 1.0)
@@ -17,6 +18,7 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.1)
       rack
+    raindrops (0.12.0)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -27,6 +29,10 @@ GEM
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
     tilt (1.4.1)
+    unicorn (4.7.0)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     websocket-driver (0.3.0)
 
 PLATFORMS
@@ -39,3 +45,4 @@ DEPENDENCIES
   puma
   sinatra
   thin
+  unicorn

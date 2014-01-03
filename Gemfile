@@ -7,3 +7,4 @@ gem 'eventmachine'
 
 gem 'thin'
 gem 'puma'
+gem 'unicorn'
